@@ -19,11 +19,12 @@ $router->group(['prefix' => 'api'], function ($router) {
     $router->group(['prefix' => 'products'], function ($router) {
         $router->get('/', 'ProductController@index');
         $router->post('/', ['middleware' => ['validateProduct'], 'uses' => 'ProductController@store']);
-
-        $router->group(['prefix' => '/{id}', 'middleware' => 'findProduct'], function ($router) {
-            $router->get('/', 'ProductController@show');
-            $router->patch('/', ['middleware' => ['validateProduct'], 'uses' => 'ProductController@update']);
-            $router->delete('/', 'ProductController@destroy');
+        $router->group(['prefix' => '/{id}'], function ($router) {
+            $router->get('/', ['middleware' => 'redisFindProduct', 'uses' => 'ProductController@show']);
+            $router->group(['middleware' => 'findProduct'], function ($router) {
+                $router->patch('/', ['middleware' => ['validateProduct'], 'uses' => 'ProductController@update']);
+                $router->delete('/', 'ProductController@destroy');
+            });
         });
     });
 });

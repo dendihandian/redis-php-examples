@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Http\Request;
+use Predis\Client as Redis;
 
 class ProductController extends Controller
 {
+    protected $redis;
+
     /**
      * Create a new controller instance.
      *
@@ -14,7 +17,11 @@ class ProductController extends Controller
      */
     public function __construct()
     {
-        //
+        $this->redis = new Redis([
+          'scheme' => 'tcp',
+          'host'   => env('REDIS_HOST'),
+          'port'   => env('REDIS_PORT'),
+        ]);
     }
 
     public function index()
@@ -41,6 +48,9 @@ class ProductController extends Controller
           'price' => $input['price'],
           'description' => $input['description'],
         ]);
+
+        // set product to redis
+        $this->redis->hmset('products:' . $product->id, $product->toArray());
 
         // prepare response
         $response = [
@@ -78,6 +88,10 @@ class ProductController extends Controller
         $product->description = $input['description'];
         $product->save();
 
+        // set product to redis
+        $this->redis->del('products:' . $product->id);
+        $this->redis->hmset('products:' . $product->id, $product->toArray());
+
         // prepare response
         $response = [
           'message' => 'Product Updated',
@@ -91,6 +105,9 @@ class ProductController extends Controller
     {
         // get product from id or middleware request next
         $product = $request->get('product');
+
+        // delete product in redis
+        $this->redis->del('products:' . $product->id);
 
         // delete product in database
         $product->delete();
