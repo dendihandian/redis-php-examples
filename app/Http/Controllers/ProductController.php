@@ -26,10 +26,17 @@ class ProductController extends Controller
 
     public function index()
     {
+        $products = [];
+
+        $keys = $this->redis->keys('products:*');
+        foreach ($keys as $key) {
+          array_push($products, $this->redis->hgetall($key));
+        }
+
         // prepare response
         $response = [
           'message' => 'Product List',
-          'data' => Product::all(),
+          'data' => $products,
         ];
 
         return response()->json($response, 200);
