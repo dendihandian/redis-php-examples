@@ -57,6 +57,7 @@ class ProductController extends Controller
         ]);
 
         // set product to redis
+        $this->redis->del('products:' . $product->id);
         $this->redis->hmset('products:' . $product->id, $product->toArray());
 
         // prepare response
