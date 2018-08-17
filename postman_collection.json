@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "08991b80-549e-457c-9ff4-683eb93c2a31",
+		"name": "Redis PHP Examples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"description": "",
+			"item": [
+				{
+					"name": "Products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{lumen_server}}/api/products",
+							"host": [
+								"{{lumen_server}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Monster Battery AA\",\n  \"stock\": 14,\n  \"price\": 170,\n  \"description\": \"A powerfull AA type battery for your toys\"\n}"
+						},
+						"url": {
+							"raw": "{{lumen_server}}/api/products",
+							"host": [
+								"{{lumen_server}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{lumen_server}}/api/products/1",
+							"host": [
+								"{{lumen_server}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Monster Battery AAA\",\n  \"stock\": 28,\n  \"price\": 340,\n  \"description\": \"A powerfull AAA type battery for your toys\"\n}"
+						},
+						"url": {
+							"raw": "{{lumen_server}}/api/products/1",
+							"host": [
+								"{{lumen_server}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{lumen_server}}/api/products/1",
+							"host": [
+								"{{lumen_server}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
