@@ -23,7 +23,7 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+$app->withFacades();
 
 $app->withEloquent();
 
@@ -66,6 +66,7 @@ $app->singleton(
 $app->routeMiddleware([
     // 'auth' => App\Http\Middleware\Authenticate::class,
     'findProduct' => App\Http\Middleware\FindProduct::class,
+    'validateProduct' => App\Http\Middleware\ValidateProduct::class,
 ]);
 
 /*

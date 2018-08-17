@@ -24,6 +24,7 @@ class ProductController extends Controller
           'message' => 'Product List',
           'data' => Product::all(),
         ];
+
         return response()->json($response, 200);
     }
 

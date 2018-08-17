@@ -18,11 +18,11 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'api'], function ($router) {
     $router->group(['prefix' => 'products'], function ($router) {
         $router->get('/', 'ProductController@index');
-        $router->post('/', 'ProductController@store');
+        $router->post('/', ['middleware' => ['validateProduct'], 'uses' => 'ProductController@store']);
 
         $router->group(['prefix' => '/{id}', 'middleware' => 'findProduct'], function ($router) {
             $router->get('/', 'ProductController@show');
-            $router->patch('/', 'ProductController@update');
+            $router->patch('/', ['middleware' => ['validateProduct'], 'uses' => 'ProductController@update']);
             $router->delete('/', 'ProductController@destroy');
         });
     });
